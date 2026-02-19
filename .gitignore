@@ -1,5 +1,5 @@
-# Go binary
-dfir-iris-mcp
+# Go binary (root only, not cmd/dfir-iris-mcp/)
+/dfir-iris-mcp
 
 # IDE
 .idea/
