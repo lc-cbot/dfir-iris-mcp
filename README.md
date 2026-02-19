@@ -125,44 +125,6 @@ internal/
 - **Response handling**: DFIR-IRIS wraps responses in `{"status","message","data"}` — the client unwraps and returns raw `data` JSON for the LLM to interpret
 - **Compatibility**: Targets legacy API endpoints supported across all DFIR-IRIS v2.x versions
 
-## LimaCharlie Integration
-
-This repo includes optional components for integrating [LimaCharlie](https://limacharlie.io/) EDR with DFIR-IRIS:
-
-### Playbook (`playbook_generate_case.py`)
-
-A LimaCharlie playbook that automatically creates DFIR-IRIS cases from detections. It:
-1. Creates a case from detection data
-2. Creates and merges an alert into the case
-3. Adds the host as a platform-aware asset
-4. Attaches detection details as a timeline event
-
-**Required LimaCharlie Hive secrets:**
-
-| Secret Name | Description |
-|-------------|-------------|
-| `iris-api-key` | DFIR-IRIS API key |
-| `iris-base-url` | DFIR-IRIS base URL (e.g. `https://iris.example.com`) |
-| `lc-actions-url` | Base URL of the actions microservice (e.g. `https://host:4443`) |
-
-### Actions Microservice (`lc-actions-svc/`)
-
-A Flask app providing one-click sensor isolation/rejoin from DFIR-IRIS asset pages.
-
-**Required environment variables:**
-
-| Variable | Description |
-|----------|-------------|
-| `LC_API_KEY` | LimaCharlie API key |
-| `LC_OID` | LimaCharlie Organization ID |
-
-```bash
-pip install flask
-python lc-actions-svc/app.py [cert.pem] [key.pem]
-```
-
-Runs on port 4443. Pass TLS cert/key arguments for HTTPS.
-
 ## License
 
 See [LICENSE](LICENSE) for details.

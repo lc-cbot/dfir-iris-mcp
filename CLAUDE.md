@@ -50,8 +50,3 @@ The `toBody()` helper converts arg structs to `map[string]any`, skipping nil poi
 ## API Compatibility
 
 Uses DFIR-IRIS legacy API endpoints (not `/api/v2/`) for maximum compatibility across all v2.x versions.
-
-## LimaCharlie Integration
-
-- `playbook_generate_case.py` — LimaCharlie playbook that converts detections into DFIR-IRIS cases (case, alert, asset, timeline event). All secrets (IRIS URL, API key, actions URL) are pulled from LimaCharlie Hive secrets at runtime — never hardcode them.
-- `lc-actions-svc/app.py` — Flask microservice for sensor isolation/rejoin from DFIR-IRIS. Requires `LC_API_KEY` and `LC_OID` env vars.
