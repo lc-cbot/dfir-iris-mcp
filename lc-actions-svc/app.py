@@ -13,7 +13,7 @@ from flask import Flask, request, jsonify, render_template_string
 app = Flask(__name__)
 
 LC_API_KEY = os.environ.get("LC_API_KEY", "")
-LC_OID = os.environ.get("LC_OID", "b8cf04fc-79b2-4ac8-932e-7b6e9a859546")
+LC_OID = os.environ["LC_OID"]  # Required: LimaCharlie Organization ID
 LC_API_BASE = "https://api.limacharlie.io"
 
 # -- LimaCharlie REST API helpers --

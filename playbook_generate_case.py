@@ -131,10 +131,11 @@ def iris_request(url, iris_key, ctx, method="GET", body=None):
 
 def playbook(sdk, data):
     # Get the secret we need from LimaCharlie.
-    irisKey = limacharlie.Hive(sdk, "secret").get("iris-key-cbot").data["secret"]
+    # Retrieve the DFIR-IRIS API key and base URL from LimaCharlie Hive secrets.
+    # Create these secrets in the LimaCharlie web UI under Organization > Secrets.
+    irisKey = limacharlie.Hive(sdk, "secret").get("iris-api-key").data["secret"]
+    IRIS_BASE = limacharlie.Hive(sdk, "secret").get("iris-base-url").data["secret"]
     iris_data = data["data"]
-
-    IRIS_BASE = "https://dfiriris.security-infrastructure.com"
 
     # Parse the details of the base event
     details = json.loads(iris_data["custom_attributes"]["LimaCharlie"]["Details"])
@@ -243,7 +244,9 @@ def playbook(sdk, data):
                 pass
 
             # Build isolation button HTML for the Actions custom attribute
-            isolation_url = f"https://34.30.6.191:4443/sensor/{sid}"
+            # Set LC_ACTIONS_URL to the host running lc-actions-svc (e.g. https://host:4443)
+            actions_base = limacharlie.Hive(sdk, "secret").get("lc-actions-url").data["secret"]
+            isolation_url = f"{actions_base}/sensor/{sid}"
             actions_html = (
                 f'<a href="{isolation_url}" target="_blank" '
                 f'style="display:inline-block;padding:8px 16px;background:#dc2626;'
